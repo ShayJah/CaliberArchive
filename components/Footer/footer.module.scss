@@ -1,0 +1,8 @@
+
+.footer{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    padding: var(--space-lg);
+    min-height: 50vh;
+    background-color: red;
+}
