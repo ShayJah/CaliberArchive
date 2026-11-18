@@ -1,0 +1,107 @@
+.pageLayout{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-md);
+}
+
+.scrollingContainer{
+    height: 100vh;
+    grid-column: span 6;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    grid-template-columns: inherit;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    gap:  var(--space-md);
+    img{
+        width: 100%;
+        aspect-ratio: 3/4;
+        background-color: var(--secondary);
+    }
+}
+
+.product{
+    grid-column: 7/11;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4xl);
+
+    label{
+        font-size: var(--fs-sm);
+        font-weight: bold;
+    }
+
+    .styleSelector{
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-xs);
+        ul{
+            display: flex;
+            gap: var(--space-xs);
+            button{
+                border: 1px solid var(--secondary);
+                background-color: red;
+                width: var(--space-4xl);
+                aspect-ratio: 3/4;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                display: flex;
+                padding:0;
+                line-height: 1;
+            }
+        }
+    }
+
+    .sizeSelector{
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-xs);
+        ul{
+            display: flex;
+            button{
+                border: 1px solid var(--secondary);
+                background-color: transparent;
+                width: var(--space-4xl);
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                display: flex;
+                padding: var(--space-md);
+                flex-grow: 1;
+                line-height: 1;
+            }
+        }
+    }
+
+    .buttonGroup{
+        display: flex;
+        flex-direction: row;
+        .addToCart{
+            border: 1px solid var(--secondary);
+            background-color: transparent;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            display: flex;
+            padding: var(--space-md);
+            flex-grow: 1;
+            line-height: 1;
+        }
+        .wishList{
+            border: 1px solid var(--secondary);
+            background-color: var(--primary);
+            aspect-ratio: 1/1;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            display: flex;
+            padding: var(--space-md);
+            flex-grow: 1;
+            line-height: 1;
+        }
+    }
+}
