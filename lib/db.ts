@@ -17,6 +17,7 @@ if (db.prepare("SELECT COUNT(*) AS n FROM products").get()!.n === 0) {
   ins.run("archive-tee", "Archive Tee", 4500, "", "Heavyweight cotton tee.");
   ins.run("field-jacket", "Field Jacket", 14500, "", "Washed canvas field jacket.");
   ins.run("cargo-pant", "Cargo Pant", 9500, "", "Relaxed cargo pant.");
+  ins.run("power-beanie", "Power Beanie", 8000, "", "Printed Beanie.");
 }
 
 export type Product = { id: number; slug: string; name: string; price_cents: number; image: string; description: string };
