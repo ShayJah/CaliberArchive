@@ -1,16 +1,12 @@
-.pageLayout{
+.productLayout{
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: var(--space-md);
+    align-items: start;
 }
 
-.scrollingContainer{
-    height: 100vh;
+.imageGallery{
     grid-column: span 6;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    grid-template-columns: inherit;
     flex-direction: column;
     display: flex;
     align-items: center;
@@ -22,11 +18,15 @@
     }
 }
 
-.product{
+.productDetails{
     grid-column: 7/11;
     display: flex;
     flex-direction: column;
     gap: var(--space-4xl);
+    position: sticky;
+    top: 7rem;
+    height: fit-content;
+    padding-bottom: 12.5vh;
 
     label{
         font-size: var(--fs-sm);
