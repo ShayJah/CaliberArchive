@@ -1,0 +1,17 @@
+.filters{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    align-self: stretch;
+    background-color: var(--primary);
+    justify-content: space-between;
+    display: flex;
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
+    button{
+        border: none;
+        padding: var(--space-sm);
+        border: 1px solid var(--secondary);
+        background-color: transparent;
+    }
+}

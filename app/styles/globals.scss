@@ -45,6 +45,7 @@ $type-scale: (
 }
 
 :root {
+  --header-height: 0px;
   --primary: rgb(250, 250, 250);
   --secondary: rgb(46, 46, 46);
   --tertiary: rgb(223, 223, 223);
@@ -515,10 +516,15 @@ ul {
   text-decoration: none;
 }
 
+body{
+
+  background-color: var(--primary);
+}
+
 main {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 600vh;
   padding: var(--space-lg);
   box-sizing: border-box;
 }

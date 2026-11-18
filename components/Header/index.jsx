@@ -1,10 +1,57 @@
-import React from 'react'
+'use client';
+
+import {useEffect, useRef, useState} from 'react'
 import styles from './header.module.scss'
 import Link from 'next/link'
 
-const index = () => {
+export default function Header() {
+  const [isHidden, setIsHidden] = useState(false);
+  const headerRef = useRef(null);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollDelta = currentScrollY - lastScrollY.current;
+
+      if (currentScrollY <= 10) {
+        setIsHidden(false);
+      } else if (scrollDelta > 0) {
+        setIsHidden(true);
+      } else if (scrollDelta < 0) {
+        setIsHidden(false);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    const updateHeaderHeight = () => {
+      if (!headerRef.current) return;
+      document.documentElement.style.setProperty(
+        '--header-height',
+        `${headerRef.current.offsetHeight}px`
+      );
+    };
+
+    updateHeaderHeight();
+    const resizeObserver = new ResizeObserver(updateHeaderHeight);
+    if (headerRef.current) {
+      resizeObserver.observe(headerRef.current);
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      resizeObserver.disconnect();
+      document.documentElement.style.removeProperty('--header-height');
+    };
+  }, []);
+
   return (
-    <header className={styles.header}>
+    <header ref={headerRef} className={`${styles.header}${isHidden ? ` ${styles.hidden}` : ''}`}>
        <nav className={styles.nav}>
         <Link href="/" className={styles.logo}>Caliber Archive</Link>
         <ul className={styles.navLinks}>
@@ -25,5 +72,3 @@ const index = () => {
     </header>
   )
 }
-
-export default index
