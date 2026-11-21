@@ -1,13 +1,16 @@
-'use client';
+"use client";
 
-import {useEffect, useRef, useState} from 'react'
-import styles from './header.module.scss'
-import Link from 'next/link'
+import { useCallback, useEffect, useRef, useState } from "react";
+import styles from "./header.module.scss";
+import Link from "next/link";
+import CartDropdown from "./CartDropdown";
 
 export default function Header() {
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const headerRef = useRef(null);
   const lastScrollY = useRef(0);
+  const closeCart = useCallback(() => setIsCartOpen(false), []);
 
   useEffect(() => {
     lastScrollY.current = window.scrollY;
@@ -30,8 +33,8 @@ export default function Header() {
     const updateHeaderHeight = () => {
       if (!headerRef.current) return;
       document.documentElement.style.setProperty(
-        '--header-height',
-        `${headerRef.current.offsetHeight}px`
+        "--header-height",
+        `${headerRef.current.offsetHeight}px`,
       );
     };
 
@@ -41,34 +44,75 @@ export default function Header() {
       resizeObserver.observe(headerRef.current);
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
       resizeObserver.disconnect();
-      document.documentElement.style.removeProperty('--header-height');
+      document.documentElement.style.removeProperty("--header-height");
     };
   }, []);
 
   return (
-    <header ref={headerRef} className={`${styles.header}${isHidden ? ` ${styles.hidden}` : ''}`}>
-       <nav className={styles.nav}>
-        <Link href="/" className={styles.logo}>Caliber Archive</Link>
+    <header
+      ref={headerRef}
+      className={`${styles.header}${isHidden ? ` ${styles.hidden}` : ""}`}
+    >
+      <nav className={styles.nav}>
+        <Link href="/" className={styles.logo}>
+          Caliber Archive
+        </Link>
         <ul className={styles.navLinks}>
-          <li><Link href="/about" className={styles.navLink}>FW 2026</Link></li>
-          <li><Link href="/contact" className={styles.navLink}>ARCHIVES 1/1</Link></li>
+          <li>
+            <Link href="/about" className={styles.navLink}>
+              FW 2026
+            </Link>
+          </li>
+          <li>
+            <Link href="/contact" className={styles.navLink}>
+              ARCHIVES 1/1
+            </Link>
+          </li>
         </ul>
         <ul className={styles.navLinks}>
-          <li><Link href="/about" className={styles.navLink}>T Shirts</Link></li>
-          <li><Link href="/contact" className={styles.navLink}>Hats</Link></li>
-          <li><Link href="/products" className={styles.navLink}>Accessories</Link></li>
+          <li>
+            <Link href="/about" className={styles.navLink}>
+              T Shirts
+            </Link>
+          </li>
+          <li>
+            <Link href="/contact" className={styles.navLink}>
+              Hats
+            </Link>
+          </li>
+          <li>
+            <Link href="/products" className={styles.navLink}>
+              Accessories
+            </Link>
+          </li>
         </ul>
         <ul className={styles.navLinks}>
-          <li><Link href="/about" className={styles.navLink}>Cart</Link></li>
-          <li><Link href="/contact" className={styles.navLink}>Search</Link></li>
-          <li><Link href="/products" className={styles.navLink}>Account</Link></li>
+          <li>
+            <button type="button" onClick={() => setIsCartOpen((open) => !open)}>
+              Cart (0)
+            </button>
+          </li>
+          <li>
+            <button type="button" >
+              Search
+            </button>
+          </li>
+          <li>
+            <Link href="/login" className={styles.navLink}>
+              Login
+            </Link>
+          </li>
         </ul>
       </nav>
+      <CartDropdown
+        isOpen={isCartOpen}
+        onClose={closeCart}
+      />
     </header>
-  )
+  );
 }

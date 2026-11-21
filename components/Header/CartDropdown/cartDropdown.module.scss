@@ -1,0 +1,139 @@
+.backdrop {
+  position: fixed;
+  inset: var(--header-height) 0 0 0;
+  background: var(--quinary);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.22s ease, visibility 0.22s ease;
+  z-index: 200;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    backdrop-filter: blur(0.5em);
+  }
+}
+
+.gridOverlay {
+  position: absolute;
+  top: calc(var(--header-height) + var(--space-lg));
+  left: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-sm);
+  padding-inline: var(--space-lg);
+  pointer-events: none;
+  z-index: 250;
+}
+
+.panel {
+  grid-column: -4 / -1;
+  height: 50vh;
+  background: var(--primary);
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+
+  clip-path: inset(0 0 100% 0);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    clip-path 0.24s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.18s ease,
+    visibility 0.24s ease;
+
+  &.open {
+    clip-path: inset(0 0 0% 0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  @media (max-width: 1024px) {
+    grid-column: 1 / -1;
+    height: calc(100dvh - var(--header-height));
+  }
+}
+
+.contentFade {
+  height: 100%;
+  animation: viewSwap 0.18s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes viewSwap {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.viewLayout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--quinary);
+  flex-shrink: 0;
+}
+
+.scrollBody {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-block: var(--space-sm);
+}
+
+.panelFooter {
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--quinary);
+  gap: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+.subtotalRow {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+// Buttons
+
+.closeBtn{
+  aspect-ratio: 1/1;
+  width: 32px;
+  padding: 0;
+  line-height: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border: 1px solid var(--quinary);
+}
+
+.checkoutBtn{
+  padding: var(--space-xs) var(--space-lg);
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  border: none;
+  background-color: var(--secondary);
+  color: var(--primary);
+  cursor: pointer;
+}

@@ -32,9 +32,25 @@
     grid-column: span 3;
     display: flex;
     flex-direction: column;
-  }
 
+    a:hover{
+      text-decoration: underline;
+    }
+    button:hover{
+      text-decoration: underline;
+    }
+    button{
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+  
+    }
+  }
   .navLinks:last-child {
     align-items: flex-end;
   }
+
+
+
 }
